@@ -1,0 +1,1 @@
+The version command displays the current version of the operating system.

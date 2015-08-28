@@ -1,0 +1,9 @@
+Welcome to the help system! Which command do you need help with?
+Enter which command you need help with
+List of available commands:
+version
+date
+directory
+exit
+help
+
