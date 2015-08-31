@@ -8,12 +8,14 @@
 #include <sys/stat.h>
 #include <cassert>
 
+//The Command Class defines the interface for executing a command
 class Command
 {
 	public:
-		virtual int execute() = 0;
+		virtual void execute() = 0;
 };
 
+//The Reciever Class does the actual work. All of the commands' functionality are contained in here
 class Reciever
 {
 	public:
@@ -21,11 +23,12 @@ class Reciever
 		{
 			
 		}
+		//Displays the current OS version
 		void version()
 		{
-			std::cout << "OS Version 1.5" << std::endl;
+			std::cout << "SmithOS Version 1.5" << std::endl;
 		}
-
+		//Displays the current date and time the command is invoked
 		void date()
 		{
 			time_t date = time(0);
@@ -80,24 +83,24 @@ class Reciever
 				}
 				std::cout << currentTime->tm_mday << ", " << (currentTime->tm_year + 1900) << ' ' << currentTime->tm_hour << ':'<< currentTime->tm_min << std::endl;
 		}
-
+		//dir actually displays the files in the current directory based on the file tree walk
 		static int dir(const char *path, const struct stat *st, int flags)
 		{
 			std::cout << path << std::endl;
 			return 0;
 		}
-
+		//directory executes the file tree walk function, which calls dir
 		void directory()
 		{
 			ftw(".", dir, 1);
 		}
-
+		//exitSystem handles the procedures to shut the OS down
 		void exitSystem()
 		{
 			std::string input;
 			bool flag = 1;
 			while (flag == 1)
-			{
+			{	//Confirm if the user actually wants to shut down
 				std::cout << "Are you sure you want to shut down? Type 'yes' if so or 'no' if not: " << std::endl;
 				std::cin >> input;
 				if(input == "yes")
@@ -120,8 +123,8 @@ class Reciever
 				}
 			}
 		}
-
-		int help()
+		//Displays help information of each available command. Each command has its own help file.
+		void help()
 		{
 			bool help = 1;
 			do
@@ -216,10 +219,12 @@ class Reciever
 				}
 			} while(help == 1);
 			
-			return 0;
+			//return 0;
 		}
 };
 
+//SeeVersion, SeeDate, SeeDirectory, ExitSystem, and SeeHelp are concrete command classes.
+//They implement the execute method by invoking commands on the Reciever class.
 class SeeVersion : public Command
 {
 	Reciever* seeVersion;
@@ -230,10 +235,10 @@ class SeeVersion : public Command
 			this->seeVersion = seeVersion;
 		}
 		
-		int execute()
+		void execute()
 		{
 			seeVersion->version();
-			return 0;
+			//return 0;
 		}
 };
 
@@ -247,10 +252,10 @@ class SeeDate : public Command
 			this->seeDate = seeDate;
 		}
 		
-		int execute()
+		void execute()
 		{
 			seeDate->date();
-			return 0;
+			//return 0;
 		}
 };
 
@@ -264,10 +269,10 @@ class SeeDirectory : public Command
 			this->seeDirectory = seeDirectory;
 		}
 		
-		int execute()
+		void execute()
 		{
 			seeDirectory->directory();
-			return 0;
+			//return 0;
 		}
 };
 
@@ -281,10 +286,10 @@ class ExitSystem : public Command
 			this->exitOS = exitOS;
 		}
 		
-		int execute()
+		void execute()
 		{
 			exitOS->exitSystem();
-			return 0;
+			//return 0;
 		}
 };
 
@@ -298,13 +303,14 @@ class SeeHelp : public Command
 			this->seeHelp = seeHelp;
 		}
 		
-		int execute()
+		void execute()
 		{
 			seeHelp->help();
-			return 0;
+			//return 0;
 		}
 };
 
+//The Invoker Class basically initiates the command. It passes the information to the Reciever and keeps a history of past commands.
 class Invoker
 {
 	public:
@@ -312,16 +318,17 @@ class Invoker
 		{
 			
 		}
-		int invoke(Command* command)
+		void invoke(Command* command)
 		{
 			commandList.push_back(command);
 			command->execute();
-			return 0;
+			//return 0;
 		}
 	private:
 		std::vector<Command*> commandList;
 };
 
+//displayMenu just displays the main menu of the operating system
 void displayMenu()
 {
 	Reciever* reciever = new Reciever();
@@ -337,10 +344,10 @@ void displayMenu()
 		std::cout << "Enter 'test' to test the functionality of the system" << std::endl;
 		std::string option;
 		std::cin >> option;
+		//Check option input. Each option passes the command to the invoker to initiate execution.
 		if(option == "version")
 		{
 			std::system("clear");
-			//Reciever* reciever = new Reciever();
 			SeeVersion* version = new SeeVersion(reciever);
 			Invoker* invoker = new Invoker();
 			invoker->invoke(version);
@@ -348,7 +355,6 @@ void displayMenu()
 		else if(option == "date")
 		{
 			std::system("clear");
-			//Reciever* reciever = new Reciever();
 			SeeDate* date = new SeeDate(reciever);
 			Invoker* invoker = new Invoker();
 			invoker->invoke(date);
@@ -356,7 +362,6 @@ void displayMenu()
 		else if(option == "directory")
 		{
 			std::system("clear");
-			//Reciever* reciever = new Reciever();
 			SeeDirectory* directory = new SeeDirectory(reciever);
 			Invoker* invoker = new Invoker();
 			invoker->invoke(directory);
@@ -364,7 +369,6 @@ void displayMenu()
 		else if(option == "exit")
 		{
 			std::system("clear");
-			//Reciever* reciever = new Reciever();
 			ExitSystem* exit = new ExitSystem(reciever);
 			Invoker* invoker = new Invoker();
 			invoker->invoke(exit);
@@ -372,23 +376,9 @@ void displayMenu()
 		else if(option == "help")
 		{
 			std::system("clear");
-			//Reciever* reciever = new Reciever();
 			SeeHelp* help = new SeeHelp(reciever);
 			Invoker* invoker = new Invoker();
-			assert(!invoker->invoke(help));
-		}
-		else if(option == "test")
-		{
-			SeeVersion* version = new SeeVersion(reciever);
-			SeeDate* date = new SeeDate(reciever);
-			SeeDirectory* directory = new SeeDirectory(reciever);
-			SeeHelp* help = new SeeHelp(reciever);
-			Invoker* invoker = new Invoker();
-			assert(!invoker->invoke(version));
-			assert(!invoker->invoke(date));
-			assert(!invoker->invoke(directory));
-			assert(!invoker->invoke(help));
-			std::cout << "Passed all tests!" << std::endl;
+			invoker->invoke(help);
 		}
 		else
 		{
