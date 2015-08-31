@@ -333,7 +333,7 @@ void displayMenu()
 {
 	Reciever* reciever = new Reciever();
 	bool run = 1;
-	std::cout << "Welcome to the OS! To get started, select an option from the following menu: " << std::endl;
+	std::cout << "Welcome to SmithOS! To get started, select an option from the following menu: " << std::endl;
 	do
 	{
 		std::cout << "Enter 'version' to show the current OS version" << std::endl;
