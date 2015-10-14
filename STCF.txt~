@@ -1,0 +1,18 @@
+Test3 entered system!
+Test3 changed state to running!
+Test preempted!
+Test changed state to running!
+Test3 changed state to ready!
+STCF Completed: Test
+Test3 changed state to running!
+STCF Completedo: Test3
+Test2 entered system!
+Test2 changed state to running!
+Test4 entered system!
+Test4 changed state to running!
+Test5 preempted!
+Test5 changed state to running!
+Test4 changed state to ready!
+STCF Completed: Test5
+Test4 changed state to running!
+STCF Completedo: Test4

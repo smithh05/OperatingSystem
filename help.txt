@@ -1,1 +1,1 @@
-You're using the help command now silly!
+Displays help for various commands in the system.

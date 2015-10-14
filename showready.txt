@@ -1,0 +1,1 @@
+The showready command displays information for processes in the ready state.

@@ -4,6 +4,10 @@ List of available commands:
 version
 date
 directory
+createpcb
+deletepcb
+block
+unblock
 suspend
 resume
 setpriority

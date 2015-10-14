@@ -1,0 +1,30 @@
+Test5 entered system!
+Test5 changed state to running!
+SJF Completed: Test5
+Test4 entered system!
+Test4 changed state to running!
+SJF Completed: Test4
+Test2 entered system!
+Test2 changed state to running!
+SJF Completed: Test2
+Test entered system!
+Test changed state to running!
+SJF Completed: Test
+Test3 entered system!
+Test3 changed state to running!
+SJF Completed: Test3
+Test5 entered system!
+Test5 changed state to running!
+SJF Completed: Test5
+Test4 entered system!
+Test4 changed state to running!
+SJF Completed: Test4
+Test2 entered system!
+Test2 changed state to running!
+SJF Completed: Test2
+Test entered system!
+Test changed state to running!
+SJF Completed: Test
+Test3 entered system!
+Test3 changed state to running!
+SJF Completed: Test3
